@@ -1,48 +1,52 @@
 # GitHub Instructions
 
+
 # Setup
 
-## 1. download github scm
-## 2. fork to personal repo (browser)
-## 3. create local repo folder
-##		cd to local repo (open with github scm)
-## 4. clone your fork to local 
-##		git clone url
-##		git branch -a
-##		git remote add upstream (me)
-##		git checkout dev
+1. download github scm
+2. fork to personal repo (browser)
+3. create local repo folder
+	cd to local repo (open with github scm)
+4. clone your fork to local 
+	git clone url
+	git branch -a
+	git remote add upstream (me)
+	git checkout dev
 
 
 # When we start a new feature:
 
-## 1. git checkout dev
-## 2. git pull upstream dev (mine)
-## 3. git checkout -b feature003
+1. start a new branch
+	git checkout dev
+	git pull upstream dev (mine)
+	git checkout -b feature003
 
 
 # Everytime you work
 
-## 1. git pull origin feature003 (to verify local matches remote esp for different machines)
-## 2. git checkout feature003
+1. verify local matches remote esp for different machines
+	git pull origin feature003
+	git checkout feature003
 
-###		Everytime you make a notable change that you want to save
 
-###		1. edit files/do work
-###			git add *
-###			git commit -m "description so we all know what it is"
-###			git push origin feature003 (sends changes feature branch to make sure there are no conflicts)
+# Everytime you make a notable change that you want to save
 
-###		2. When feature is complete, look for merge conflicts
-###			git checkout dev (local dev branch)
-###			git pull origin dev (remote dev)
-###			git pull upstream dev (my dev)
-###			git checkout feature003 (local feature branch)
-###			git merge dev (local dev to local feature)
+1. edit files/do work
+	git add *
+	git commit -m "description so we all know what it is"
+	git push origin feature003 (sends changes to feature branch to make sure there are no conflicts)
 
-###		3. fix merge conflicts --> repeat 1 and 2
-###			git push origin feature003
+2. When feature is complete, look for merge conflicts
+	git checkout dev (local dev branch)
+	git pull origin dev (remote dev)
+	git pull upstream dev (my dev)
+	git checkout feature003 (local feature branch)
+	git merge dev (local dev to local feature)
 
-###		4. in browser
-###			pull request your repo feautre 3 to natalies repo feature dev.
+3. fix merge conflicts --> repeat 1 and 2
+	git push origin feature003
+
+4. in browser
+	pull request your feature003 to Natalie's.
 
 
