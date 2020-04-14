@@ -1,7 +1,7 @@
 # GitHub Instructions
 
 
-# Setup
+### Setup
 
 1. download github scm
 2. fork to personal repo (browser)
@@ -14,7 +14,7 @@
 	git checkout dev
 
 
-# When we start a new feature:
+### When we start a new feature:
 
 1. start a new branch
 	git checkout dev
@@ -22,14 +22,14 @@
 	git checkout -b feature003
 
 
-# Everytime you work
+### Everytime you work
 
 1. verify local matches remote esp for different machines
 	git pull origin feature003
 	git checkout feature003
 
 
-# Everytime you make a notable change that you want to save
+### Everytime you make a notable change that you want to save
 
 1. edit files/do work
 	git add *
