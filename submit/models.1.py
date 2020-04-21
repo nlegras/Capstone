@@ -10,6 +10,9 @@ class rides(models.Model):
     depZip = models.IntegerField()
     arrZip = models.IntegerField()
     driEmail = models.EmailField()
+    driSmokes = models.BooleanField(default=False)
+    riderPets = models.BooleanField(default=False)
+    riderLugg = models.IntegerField(default=0)
     
     def __str__(self):
         return self.depDate

@@ -6,3 +6,6 @@ class rideForm(forms.Form):
     departZip = forms.IntegerField()
     arrivalZip = forms.IntegerField()
     driverEmail = forms.EmailField()
+    driSmokes = forms.BooleanField()
+    riderPets = forms.BooleanField()
+    riderLugg = forms.IntegerField()
