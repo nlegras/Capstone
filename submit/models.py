@@ -10,6 +10,7 @@ class Rides(models.Model):
     depZip = models.IntegerField()
     arrZip = models.IntegerField()
     driEmail = models.EmailField()
+    reserved = models.TextField(default='Open')
     
     def __str__(self):
         return self.depDate

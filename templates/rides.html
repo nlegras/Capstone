@@ -59,6 +59,16 @@
         <td>{{ ride.depZip }}</td>
         <td>{{ ride.arrZip }}</td>
         <td>{{ ride.driEmail }}</td>
+        <td>{% if ride.reserved == "Open" %}
+          <form action="reserve" method="post" id="resForm" name="resForm">
+            {% csrf_token %}
+          <button form="resForm" id="reserveID" name="reserveID" value="{{ ride.id }}">RESERVE</button>
+          {% endif %}
+          {% if ride.reserved == "Reserved" %}
+          <p style="color: Red"><strong><del>{{ ride.reserved }}</del></strong></p>
+          {% endif %}
+          </form>
+        </td>
       </tr>
     {% endfor %}   
     </tbody>

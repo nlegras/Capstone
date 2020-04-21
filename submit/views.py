@@ -13,7 +13,7 @@ def index(request):
             departZip = request.POST.get('departZip')
             arrivalZip = request.POST.get('arrivalZip')
             driverEmail = request.POST.get('driverEmail')
-            record = Rides(depDate=departDate, depTime=departTime, depZip=departZip, arrZip=arrivalZip, driEmail=driverEmail)
+            record = Rides(depDate=departDate, depTime=departTime, depZip=departZip, arrZip=arrivalZip, driEmail=driverEmail, reserved='Open')
             record.save()
         else:
             pass
