@@ -13,15 +13,15 @@ def index(request):
             departZip = request.POST.get('departZip')
             arrivalZip = request.POST.get('arrivalZip')
             driverEmail = request.POST.get('driverEmail')
-            if request.POST.get('driSmokes') == 'on':
-                driverSmokes = True
+            rideLugg = request.POST.get('ridersLugg')
+            if request.POST.get('drisSmokes') == 'on':
+                driverSmokes = 1
             else:
-                driverSmokes = False
-            if request.POST.get('riderPets') == 'on':
-                ridePets = True
+                driverSmokes = 0
+            if request.POST.get('ridersPets') == 'on':
+                ridePets = 1
             else:
-                ridePets = False
-            rideLugg = request.POST.get('riderLugg')
+                ridePets = 0
             record = Rides(depDate=departDate, depTime=departTime, depZip=departZip, arrZip=arrivalZip, driEmail=driverEmail, reserved='Open', driSmokes=driverSmokes, riderPets=ridePets, riderLugg=rideLugg)
             record.save()
         else:

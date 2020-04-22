@@ -11,8 +11,8 @@ class Rides(models.Model):
     arrZip = models.IntegerField()
     driEmail = models.EmailField()
     reserved = models.TextField(default='Open')
-    driSmokes = models.BooleanField(default=False)
-    riderPets = models.BooleanField(default=False)
+    driSmokes = models.IntegerField(default=0)
+    riderPets = models.IntegerField(default=0)
     riderLugg = models.IntegerField(default=0)
     
     def __str__(self):
