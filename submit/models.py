@@ -1,7 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
-
+from pyzipcode import ZipCodeDatabase
+zcdb = ZipCodeDatabase()
 # Create your models here.
 
 class Rides(models.Model):
@@ -18,4 +19,10 @@ class Rides(models.Model):
     def __str__(self):
         return self.depDate
         
+    @property
+    def depName(self):
+        return zcdb[self.depZip].city + ", " + zcdb[self.depZip].state
+    @property
+    def arrName(self):
+        return zcdb[self.arrZip].city + ", " + zcdb[self.arrZip].state        
     

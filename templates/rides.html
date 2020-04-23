@@ -46,8 +46,8 @@
       <tr>
         <th scope="col">Departure Date</th>
         <th scope="col">Departure Time</th>
-        <th scope="col">Departure ZIP</th>
-        <th scope="col">Destination ZIP</th>
+        <th scope="col">Departure City</th>
+        <th scope="col">Destination City</th>
         <th scope="col">Driver Email</th>
       </tr>
     </thead>
@@ -56,8 +56,8 @@
       <tr>
         <td>{{ ride.depDate }}</td>
         <td>{{ ride.depTime}}</td>
-        <td>{{ ride.depZip }}</td>
-        <td>{{ ride.arrZip }}</td>
+        <td>{{ ride.depName }}</td>
+        <td>{{ ride.arrName }}</td>
         <td>{{ ride.driEmail }}</td>
         <td>{% if ride.reserved == "Open" %}
           <form action="reserve" method="post" id="resForm" name="resForm">
