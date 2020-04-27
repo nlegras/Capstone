@@ -54,7 +54,7 @@
     </div class="col">
     <div class="col">
       <label for="seatCapacity">Maximum Number of Riders: </label>
-      <input type="number" id="seatCapacity" name="seatCapacity" class="form-control" form="rideForm">
+      <input type="number" id="seatCapacity" name="seatCapacity" class="form-control" form="rideForm" min="0" value="1">
     </div>
     </div class="form-row">
     <div class="form-row">
@@ -86,7 +86,7 @@
     <label for="riderLugg">Number of luggage allowed: </label>
     </div>
     <div class="col">
-    <input type="number" id="riderLugg" name="ridersLugg" class="form-control" min="0" form="rideForm">
+    <input type="number" id="riderLugg" name="ridersLugg" class="form-control" min="0" form="rideForm" value="1">
     </div>
   </div>
   <input type="submit" value="Submit" class="btn btn-primary" form="rideForm">
