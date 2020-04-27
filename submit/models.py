@@ -12,6 +12,8 @@ class Rides(models.Model):
     arrZip = models.IntegerField()
     driEmail = models.EmailField()
     reserved = models.TextField(default='Open')
+    seatTaken = models.IntegerField(default=0)
+    seatCapacity = models.IntegerField(default=1)
     driSmokes = models.IntegerField(default=0)
     riderPets = models.IntegerField(default=0)
     riderLugg = models.IntegerField(default=0)
