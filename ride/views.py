@@ -21,7 +21,7 @@ def resRide(request):
          #send email to driver
          driEmail = [reservation.driEmail]
          subject = 'Ride Offer Reserved'
-         message = 'Someone accepted your ride on EDUWheels'
+         message = f'Someone accepted your ride on {reservation.depDate} from {reservation.depName} to {reservation.arrName} using EDUWheels!'
          email_from = settings.EMAIL_HOST_USER
 
          send_mail ( subject, message, email_from, driEmail )
