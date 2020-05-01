@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from .ip import ip
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -26,7 +27,7 @@ SECRET_KEY = 'y%$rrxweer^u11^wy7%9kkbq3@ok)-gr1wgw(kqufk9=z&!^=e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ '127.0.0.1', '0', 'localhost']
+ALLOWED_HOSTS = [ip(), '127.0.0.1', '0', 'localhost']
 
 
 # Application definition
