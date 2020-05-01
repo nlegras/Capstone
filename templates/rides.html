@@ -4,6 +4,9 @@
 <title>EDUWheels</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -60,12 +63,60 @@
         <td>{{ ride.arrName }}</td>
         <td>{{ ride.driEmail }}</td>
         <td>{% if ride.reserved == "Open" %}
+        
           <form action="reserve" method="post" id="resForm" name="resForm">
             {% csrf_token %}
-          <button form="resForm" id="reserveID" name="reserveID" value="{{ ride.id }}">RESERVE</button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#reserveModal">Reserve</button>
+            <div class="container">
+            
+              <!-- The Modal -->
+              <div class="modal" id="reserveModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                  
+                    <div class="modal-header">
+                      <h4 class="modal-title">Confirm Reservation</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <div class="modal-body">
+                      <div class="container-fluid">
+                        <div class="row">
+                            <div class="col">Departure Date: </div>
+                            <div class="col">{{ ride.depDate }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Departure Time: </div>
+                            <div class="col">{{ ride.depTime}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Departure City: </div>
+                            <div class="col">{{ ride.depName }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Destination City: </div>
+                            <div class="col">{{ ride.arrName }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Driver Email: </div>
+                            <div class="col">{{ ride.driEmail }}</div>
+                        </div>
+                      </div>
+                    </div>
+            
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-secondary" form="resForm" id="reserveID" name="reserveID" value="{{ ride.id }}">Reserve</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End Modal -->
+            
+          </div>
           {% endif %}
           {% if ride.reserved == "Reserved" %}
-          <p style="color: Red"><strong><del>{{ ride.reserved }}</del></strong></p>
+          <button type="button" class="btn btn-secondary" {{ ride.reserved }} disabled>Reserved</button>
           {% endif %}
           </form>
         </td>
@@ -74,7 +125,9 @@
     </tbody>
 
   </table>
-</div>
+
+
+
 
 
 </body>
