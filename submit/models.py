@@ -18,13 +18,13 @@ class Rides(models.Model):
     riderPets = models.IntegerField(default=0)
     riderLugg = models.IntegerField(default=0)
     
-    def __str__(self):
-        return self.depDate
-        
     @property
     def depName(self):
         return zcdb[self.depZip].city + ", " + zcdb[self.depZip].state
     @property
     def arrName(self):
-        return zcdb[self.arrZip].city + ", " + zcdb[self.arrZip].state        
+        return zcdb[self.arrZip].city + ", " + zcdb[self.arrZip].state  
+        
+    def __str__(self):
+        return self.arrName
     
