@@ -52,6 +52,8 @@
         <th scope="col">Departure City</th>
         <th scope="col">Destination City</th>
         <th scope="col">Driver Email</th>
+        <th scope="col">Seats Taken</th>
+        <th scope="col">Reserve</th>
       </tr>
     </thead>
     <tbody>
@@ -62,15 +64,16 @@
         <td>{{ ride.depName }}</td>
         <td>{{ ride.arrName }}</td>
         <td>{{ ride.driEmail }}</td>
-        <td>{% if ride.reserved == "Open" %}
+        <td>{{ ride.seatTaken }} / {{ ride.seatCapacity }}</td>
+        <td>{% if ride.seatTaken != ride.seatCapacity %}
         
           <form action="reserve" method="post" id="resForm" name="resForm">
             {% csrf_token %}
-            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#reserveModal">Reserve</button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-{{ ride.id }}">Reserve</button>
             <div class="container">
             
               <!-- The Modal -->
-              <div class="modal" id="reserveModal">
+              <div class="modal" id="modal-{{ ride.id }}">
                 <div class="modal-dialog">
                   <div class="modal-content">
                   
@@ -115,7 +118,7 @@
             
           </div>
           {% endif %}
-          {% if ride.reserved == "Reserved" %}
+          {% if ride.seatTaken == ride.seatCapacity %}
           <button type="button" class="btn btn-secondary" {{ ride.reserved }} disabled>Reserved</button>
           {% endif %}
           </form>

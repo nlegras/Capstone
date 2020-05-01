@@ -17,7 +17,8 @@ def resRide(request):
       if resForm.is_valid():
          reserveID = request.POST.get('reserveID')
          reservation = Rides.objects.get(id=reserveID)
-         reservation.reserved = 'Reserved'
+         reservation.seatTaken = reservation.seatTaken + 1
+
          #send email to driver
          driEmail = [reservation.driEmail]
          subject = 'Ride Offer Reserved'
