@@ -6,7 +6,7 @@ from .forms import reserveForm
 # Create your views here.
 
 def post_rides(request):
-   rides = Rides.objects.filter(depDate__gte=timezone.now())
+   rides = Rides.objects.filter(depDate__gte=timezone.now()).order_by('depDate','depTime')
    return render(request, 'rides.html', {'rides': rides})
 
 def resRide(request):
