@@ -53,6 +53,7 @@
         <th scope="col">Destination City</th>
         <th scope="col">Driver Email</th>
         <th scope="col">Seats Taken</th>
+        <th scope="col">Price</th>
         <th scope="col">Reserve</th>
       </tr>
     </thead>
@@ -65,6 +66,7 @@
         <td>{{ ride.arrName }}</td>
         <td>{{ ride.driEmail }}</td>
         <td>{{ ride.seatTaken }} / {{ ride.seatCapacity }}</td>
+        <td>&dollar;{{ ride.riderPrice }}</td>
         <td>{% if ride.seatTaken != ride.seatCapacity %}
         
           <form action="reserve" method="post" id="resForm" name="resForm">

@@ -15,6 +15,7 @@ def index(request):
             driverEmail = request.POST.get('driverEmail')
             rideLugg = request.POST.get('ridersLugg')
             seatCapac = request.POST.get('seatCapacity')
+            riderPrice = request.POST.get('riderPrice')
             if request.POST.get('drisSmokes') == 'on':
                 driverSmokes = 1
             else:
@@ -23,7 +24,7 @@ def index(request):
                 ridePets = 1
             else:
                 ridePets = 0
-            record = Rides(depDate=departDate, depTime=departTime, depZip=departZip, arrZip=arrivalZip, driEmail=driverEmail, seatCapacity=seatCapac, reserved='Open', driSmokes=driverSmokes, riderPets=ridePets, riderLugg=rideLugg)
+            record = Rides(depDate=departDate, depTime=departTime, depZip=departZip, arrZip=arrivalZip, driEmail=driverEmail, seatCapacity=seatCapac, reserved='Open', driSmokes=driverSmokes, riderPets=ridePets, riderLugg=rideLugg, riderPrice=riderPrice)
             record.save()
         else:
             pass

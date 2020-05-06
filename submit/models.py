@@ -17,6 +17,7 @@ class Rides(models.Model):
     driSmokes = models.IntegerField(default=0)
     riderPets = models.IntegerField(default=0)
     riderLugg = models.IntegerField(default=0)
+    riderPrice = models.DecimalField(default=0, max_digits=5, decimal_places=2)
     
     @property
     def depName(self):
