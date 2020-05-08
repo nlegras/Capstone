@@ -46,66 +46,40 @@
   <form action="#" method="post" id="rideForm" name="rideForm">
     <div class="form-group">
     {% csrf_token %}
-    
       <div class="form-row">
         <div class="col">
           <label for="departDate">Departure Date: </label>
-          <input type="date" id="departDate" name="departDate" required class="form-control" form="rideForm" value="2020-05-11"><br>
+          <input type="date" id="departDate" name="departDate" required class="form-control" form="rideForm"><br>
         </div>
         <div class="col">
           <label for="departTime">Departure Time: </label>
-          <input type="time" id="departTime" name="departTime" required class="form-control" form="rideForm" value="12:00:00"><br>
+          <input type="time" id="departTime" name="departTime" required class="form-control" form="rideForm"><br>
         </div>
         <div class="col">
           <label for="seatCapacity">Maximum Number of Riders: </label>
           <input type="number" id="seatCapacity" name="seatCapacity" class="form-control" form="rideForm" min="0" value="1">
         </div>
       </div>
-      
       <div class="form-row">
-        <div class="col">
-          <label for="departCity">Departure City: </label>
-          <input type="text" id="departCity" name="departCity" class="form-control" form="rideForm" value="Monmouth"><br>
-        </div>
-        <div class="col">
-          <label for="departState">Departure State: </label>
-          <input type="text" id="departState" name="departState" class="form-control" form="rideForm" value="OR"><br>
-        </div>
         <div class="col">
           <label for="departZip">Departure Zip Code: </label>
-          <input type="text" id="departZip" name="departZip" class="form-control" form="rideForm" value="97383"><br>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col">
-          <label for="arrivalCity">Arrival City: </label>
-          <input type="text" id="arrivalCity" name="arrivalCity" class="form-control" form="rideForm" value="Albany"><br>
-        </div>
-        <div class="col">
-          <label for="arrivalState">Arrival State: </label>
-          <input type="text" id="arrivalState" name="arrivalState" class="form-control" form="rideForm" value="OR"><br>
+          <input type="text" inputmode="numeric" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$" id="departZip" name="departZip" minlength="5" maxlength="5" required class="form-control" form="rideForm"><br>
         </div>
         <div class="col">
           <label for="arrivalZip">Arrival Zip Code: </label>
-          <input type="text" inputmode="numeric" id="arrivalZip" name="arrivalZip" minlength="5" maxlength="5" class="form-control" form="rideForm" value="97322"><br>
+          <input type="text" inputmode="numeric" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$" id="arrivalZip" name="arrivalZip" minlength="5" maxlength="5" required class="form-control" form="rideForm"><br>
         </div>
       </div>
-      
       <div class="form-row">
-        <div class="col"> <!-- formatting is all jacked up, can't figure out!!!-->
+        <div class="col">
           <label for="driverEmail">Driver E-Mail: </label>
-          <input type="email" id="driverEmail" name="driverEmail" required class="form-control" form="rideForm" value="nlegras14@wou.edu"><br>
+          <input type="email" id="driverEmail" name="driverEmail" required class="form-control" form="rideForm"><br>
         </div>
-<<<<<<< HEAD
-        <div class="col-2">
-=======
-        <div class="col"> 
->>>>>>> dev
+        <div class="col">
           <label for="riderPrice">Price: </label><br>
           <input type="number" inputmode="numeric" max="999" min ="0" step ="5" value="0" id="riderPrice" name="riderPrice" required class="form-control" form="rideForm"><br>
         </div>
       </div>
-      
       <div class="form-row">
         <div class="col">
           <label for="driSmokes">Smoking allowed in vehicle </label>
@@ -125,39 +99,8 @@
         <div class="col">
           <input type="number" id="riderLugg" name="ridersLugg" class="form-control" min="0" value="0" form="rideForm">
         </div>
-<<<<<<< HEAD
-      </div> 
-      <input type="submit" value="Submit" class="btn btn-primary" form="rideForm">
-=======
       </div>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submitModal">
-        Submit Offer
-      </button>
-
-      <!-- Modal -->
-      <div class="modal" id="submitModal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-          
-            <div class="modal-header">
-              <h4 class="modal-title">Confirm Offer</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            
-            <div class="modal-body">
-              <div class="container-fluid">
-                <p>Are you sure you want to offer this ride?</p>
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <input type="submit" value="Submit" class="btn btn-primary" form="rideForm">
-            </div>
-          </div>
-        </div>
-      </div>      
-
->>>>>>> dev
+      <input type="submit" value="Submit" class="btn btn-primary" form="rideForm">
     </div class="form-group">
   </form>
 </div>
