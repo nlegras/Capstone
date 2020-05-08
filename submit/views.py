@@ -12,11 +12,14 @@ def index(request):
         if form.is_valid():
             departDate  = request.POST.get('departDate')
             departTime  = request.POST.get('departTime')
-            # departZip = request.POST.get('departZip')
-            # departCity  = request.POST.get('departCity')
-            # departState = request.POST.get('departState')
-            departZip   = zcdb.find_zip(city=request.POST.get('departCity'), state=request.POST.get('departState'))[0].zip
-            print(departZip)
+            departCity  = request.POST.get('departCity')
+            departState = request.POST.get('departState')
+            departZip = request.POST.get('departZip')
+            if not departZip:
+                departZip = zcdb.find_zip(city=departCity, state=departState)[0].zip
+            print("check: ", departZip)
+            # departZip   = zcdb.find_zip(city=request.POST.get('departCity'), state=request.POST.get('departState'))[0].zip
+            # print(departZip)
             arrivalZip  = request.POST.get('arrivalZip')
             # arrivalCity  = request.POST.get('aCity')
             # arrivalState = request.POST.get('aState')
@@ -33,8 +36,10 @@ def index(request):
                 ridePets = 1
             else:
                 ridePets = 0
+            print(form)
             print(form.cleaned_data)
             record = Rides(depDate=departDate, depTime=departTime, depZip=departZip, arrZip=arrivalZip, driEmail=driverEmail, seatCapacity=seatCapac, reserved='Open', driSmokes=driverSmokes, riderPets=ridePets, riderLugg=rideLugg, riderPrice=riderPrice)
+            print(record.depZip) 
             record.save()
         else:
             pass

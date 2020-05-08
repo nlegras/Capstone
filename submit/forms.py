@@ -20,11 +20,18 @@ class rideForm(forms.Form):
     print('hello')
     
     def clean(self):
-        departCity = self.cleaned_data.get('departCity')
-        departState = self.cleaned_data.get('departState')
-        departZip   = zcdb.find_zip(city=departCity, state=departState)[0].zip
-        print(departZip)
-        if not (departCity and departState) and not departZip:
-            raise forms.ValidationError('Enter city and state or zip')
+        cleaned_data = super().clean()
+        departCity = cleaned_data.get('departCity')
+        departState = cleaned_data.get('departState')
+        departZip = cleaned_data.get('departZip')
+        
+        if not departZip:
+            if departCity and departState:
+                departZip = zcdb.find_zip(city=departCity, state=departState)[0].zip
+            else:
+                if not departCity:
+                    self.add_error('departCity', 'no city')
+                if not departState:
+                    self.add_error('departState', 'no state')
         return self.cleaned_data
 
