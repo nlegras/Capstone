@@ -4,25 +4,31 @@ from .forms import rideForm
 from .models import Rides
 from pyzipcode import ZipCodeDatabase
 from django.contrib import messages
+from address import AddressParser, Address
 zcdb = ZipCodeDatabase()
+
 # Create your views here.
 
+
 def index(request):
+    ap = AddressParser()
     if request.method == 'POST':
         form = rideForm(request.POST)
         if form.is_valid():
             departDate  = request.POST.get('departDate')
             departTime  = request.POST.get('departTime')
-            departCity  = request.POST.get('departCity')
-            departState = request.POST.get('departState')
-            departZip = request.POST.get('departZip')
-            if not departZip:
-                departZip = zcdb.find_zip(city=departCity, state=departState)[0].zip
-            arrivalCity  = request.POST.get('arrivalCity')
-            arrivalState = request.POST.get('arrivalState')
-            arrivalZip  = request.POST.get('arrivalZip')
-            if not arrivalZip:
-                arrivalZip = zcdb.find_zip(city=arrivalCity, state=arrivalState)[0].zip
+            departLocation = request.POST.get('departLocation')
+            departLocation = ap.parse_address(departLocation)
+            if not departLocation.zip:
+                departZip = zcdb.find_zip(city=departLocation.city, state=departLocation.state)[0].zip
+            else:
+                departZip = departLocation.zip
+            arrivalLocation = request.POST.get('arrivalLocation')
+            arrivalLocation = ap.parse_address(arrivalLocation)
+            if not arrivalLocation.zip:
+                arrivalZip = zcdb.find_zip(city=arrivalLocation.city, state=arrivalLocation.state)[0].zip
+            else:    
+                arrivalZip = arrivalLocation.zip
             driverEmail = request.POST.get('driverEmail')
             rideLugg    = request.POST.get('ridersLugg')
             seatCapac   = request.POST.get('seatCapacity')
