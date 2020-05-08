@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .forms import rideForm
 from .models import Rides
 from pyzipcode import ZipCodeDatabase
+from django.contrib import messages
 zcdb = ZipCodeDatabase()
 # Create your views here.
 
@@ -36,6 +37,7 @@ def index(request):
                 ridePets = 0
             record = Rides(depDate=departDate, depTime=departTime, depZip=departZip, arrZip=arrivalZip, driEmail=driverEmail, seatCapacity=seatCapac, reserved='Open', driSmokes=driverSmokes, riderPets=ridePets, riderLugg=rideLugg, riderPrice=riderPrice)
             record.save()
+            messages.success(request, 'The Ride Offer was submitted successfully.')
         else:
             pass
             print(form.errors)
