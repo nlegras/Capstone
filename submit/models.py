@@ -28,5 +28,5 @@ class Rides(models.Model):
         return zcdb[self.arrZip].city + ", " + zcdb[self.arrZip].state  
         
     def __str__(self):
-        return self.depDate.strftime("%m/%d/%Y")+": "+self.depName+" "+self.arrName
+        return self.depDate.strftime("%m/%d/%Y")+": "+self.depName+" to "+self.arrName
     
