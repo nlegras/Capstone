@@ -52,9 +52,10 @@
           <label for="departDate">Departure Date: </label>
           <input type="date" id="departDate" name="departDate" required class="form-control" form="rideForm" value="2020-05-11"><br>
         </div>
-        <div class="col">
+        <div class="md-form md-outline input-with-time-icon timepicker" twelvehour="true">
           <label for="departTime">Departure Time: </label>
-          <input type="time" id="departTime" name="departTime" required class="form-control" form="rideForm" value="12:00:00"><br>
+          <input type="text" id="departTime" name="departTime" required class="form-control timepicker" form="rideForm" placeholder='Select Time'><br>
+          <i class="fas fa-envelope input-prefix"></i>
         </div>
         <div class="col">
           <label for="seatCapacity">Maximum Number of Riders: </label>
@@ -143,6 +144,8 @@
     </div>
   {% endfor %}
   <!--% include '..\templates\messages.html' %-->
+  // Time Picker Initialization
+  $('#input_starttime').pickatime({});
 </div>
 
 
