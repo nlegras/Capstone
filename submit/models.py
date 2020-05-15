@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 from pyzipcode import ZipCodeDatabase
+from datetime import datetime
 zcdb = ZipCodeDatabase()
 # Create your models here.
 
@@ -27,5 +28,5 @@ class Rides(models.Model):
         return zcdb[self.arrZip].city + ", " + zcdb[self.arrZip].state  
         
     def __str__(self):
-        return self.arrName
+        return self.depDate.strftime("%m/%d/%Y")+": "+self.depName+" "+self.arrName
     
