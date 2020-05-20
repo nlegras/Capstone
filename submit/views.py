@@ -5,11 +5,12 @@ from .models import Rides
 from pyzipcode import ZipCodeDatabase
 from django.contrib import messages
 from address import AddressParser, Address
+from django.contrib.auth.decorators import login_required
 zcdb = ZipCodeDatabase()
 
 # Create your views here.
 
-
+@login_required
 def index(request):
     ap = AddressParser()
     if request.method == 'POST':

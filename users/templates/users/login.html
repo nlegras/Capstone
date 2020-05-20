@@ -21,15 +21,6 @@
       <a class="nav-item nav-link active" href="#">Available Rides <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/submit">Offer Ride</a>
     </div>
-      <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          User Profile
-      </a>-->
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <a class="dropdown-item" href="#">Driver Profile</a>
-      <a class="dropdown-item" href="#">Rider Profile</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Something else here</a>
-    </div>
     {% if user.is_authenticated %}
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           User Profile
@@ -73,16 +64,16 @@
     <form method="POST">
         {% csrf_token %}
         <fieldset class ="form-group">
-            <legend class="border-bottom mb-4">Join Today</legend>
+            <legend class="border-bottom mb-4">Log In</legend>
             {{ form|crispy }}
         </fieldset>
         <div class ="form-group">
-            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+            <button class="btn btn-outline-info" type="submit">Log In</button>
         </div>
     </form>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Already Have An Account? <a class ="ml-2" href="{% url 'login'  %}">Sign In</a>
+            Need An Account? <a class ="ml-2" href="{% url 'register'  %}">Sign Up Now</a>
         </small>
     </div>
 </div>

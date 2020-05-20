@@ -141,3 +141,6 @@ EMAIL_HOST_PASSWORD = 's&CL+P[9<Prd'
 STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = '/rides'
+LOGIN_URL = 'login'
