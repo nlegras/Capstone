@@ -1,4 +1,6 @@
 from django import forms
+from django.forms.widgets import SelectDateWidget
+
 
 class rideForm(forms.Form):
     departDate = forms.DateField()
