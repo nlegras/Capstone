@@ -6,7 +6,7 @@ class rideForm(forms.Form):
     seatCapacity = forms.IntegerField()   
     departLocation = forms.CharField()
     arrivalLocation = forms.CharField() 
-    driverEmail = forms.EmailField()
+    #driverEmail = forms.EmailField()
     riderPrice = forms.DecimalField(max_digits=5, decimal_places=2)
     drisSmokes = forms.CheckboxSelectMultiple()
     ridersPets = forms.CheckboxSelectMultiple()

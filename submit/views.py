@@ -6,12 +6,14 @@ from pyzipcode import ZipCodeDatabase
 from django.contrib import messages
 from address import AddressParser, Address
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 zcdb = ZipCodeDatabase()
 
 # Create your views here.
 
 @login_required
 def index(request):
+
     ap = AddressParser()
     if request.method == 'POST':
         form = rideForm(request.POST)
@@ -30,7 +32,7 @@ def index(request):
                 arrivalZip = zcdb.find_zip(city=arrivalLocation.city, state=arrivalLocation.state)[0].zip
             else:    
                 arrivalZip = arrivalLocation.zip
-            driverEmail = request.POST.get('driverEmail')
+            driverEmail = request.user.email
             rideLugg    = request.POST.get('ridersLugg')
             seatCapac   = request.POST.get('seatCapacity')
             riderPrice  = request.POST.get('riderPrice')
