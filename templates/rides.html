@@ -48,7 +48,7 @@
     <caption>Available Rides</caption>
     <thead>
       <tr>
-        <th scope="col" onclick="sortTable(0, 'dd')">Departure Date <i id="dd" class="fa fa-fw fa-sort"></i></th>
+        <th scope="col" onclick="sortTableDate(0, 'dd')">Departure Date <i id="dd" class="fa fa-fw fa-sort"></i></th>
         <th scope="col" onclick="sortTableTime(1, 'dt')">Departure Time <i id="dt" class="fa fa-fw fa-sort"></th>
         <th scope="col" onclick="sortTable(2, 'dc')">Departure City <i id="dc" class="fa fa-fw fa-sort"></th>
         <th scope="col" onclick="sortTable(3, 'ac')">Destination City <i id="ac" class="fa fa-fw fa-sort"></th>
@@ -61,7 +61,7 @@
     <tbody>
     {% for ride in rides %}
       <tr>
-        <td>{{ ride.depDate|date:"l, F j, Y n/j/y" }}</td>
+        <td>{{ ride.depDate|date:"F j, Y" }}</td>
         <td>{{ ride.depTime|time:"g:i A" }}</td>
         <td>{{ ride.depName }}</td>
         <td>{{ ride.arrName }}</td>
@@ -221,6 +221,64 @@ function sortTableTime(n, id) {
         }
       } else if (dir == "desc") {
         if (x.innerHTML.replace("12:00 AM", "00:00 AM") < y.innerHTML.replace("12:00 AM", "00:00 AM")) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+function sortTableDate(n, id) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  //var show = {id: 0, name:'james'};
+  //console.log(show.name);
+  table = document.getElementById("availableRides");
+  console.log(table);
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (Date.parse(x.innerHTML) > Date.parse(y.innerHTML)) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (Date.parse(x.innerHTML) < Date.parse(y.innerHTML)) {
           //if so, mark as a switch and break the loop:
           shouldSwitch = true;
           break;
