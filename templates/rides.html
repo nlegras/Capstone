@@ -21,19 +21,27 @@
       <a class="nav-item nav-link active" href="#">Available Rides <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/submit">Offer Ride</a>
     </div>
-      <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {% if user.is_authenticated %}
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           User Profile
-      </a>-->
+      </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <a class="dropdown-item" href="#">Driver Profile</a>
-      <a class="dropdown-item" href="#">Rider Profile</a>
+      <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
+      <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Something else here</a>
+      <!--<a class="dropdown-item" href="#">Something else here</a>-->
     </div>
     <!--<form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>-->
+  </div>
+  <div class ="navbar-nav">
+    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+    {% else %}
+    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+    {% endif %}
   </div>
 </nav>
 
@@ -41,6 +49,15 @@
   <h1 class="display-4">EDUWheels</h1>
   <p class="lead">Welcome to EDUWheels, the place to find secure campus ride sharing!</p>
 </div>
+
+{% for message in messages %}
+<div class="alert {{ message.tags }} alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    {{ message }}
+</div>
+{% endfor %}
 
 <div class="container-fluid">
   <table class="table table-striped">
