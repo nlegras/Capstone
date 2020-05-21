@@ -43,7 +43,7 @@
 </div>
 
 <div class="container-fluid">
-  <form action="#" method="post" id="rideForm" name="rideForm">
+  <!<form action="#" method="post" id="rideForm" name="rideForm">
     <div class="form-group">
     {% csrf_token %}
    
@@ -54,7 +54,15 @@
         </div>
         <div class="col">
           <label for="departTime">Departure Time: </label>
-          <input type="time" id="departTime" name="departTime" required class="form-control" form="rideForm" value="12:00:00"><br>
+          <input type="time" id="departTime" name="departTime" required class="form-control" form="rideForm" value="12:00:00" step="1800" list="timelist"><br>
+            <datalist id="timelist">
+              <option value="12:00">
+              <option value="14:00">
+              <option value="16:00">
+              <option value="18:00">
+              <option value="20:00">
+              <option value="22:00">
+              </datalist>
         </div>
         <div class="col">
           <label for="seatCapacity">Maximum Number of Riders: </label>
@@ -145,10 +153,6 @@
   <!--% include '..\templates\messages.html'
   // Time Picker Initialization
   $('#input_starttime').pickatime({});  %-->
-</div>
-
-
-</body>
 </html>
 
 
