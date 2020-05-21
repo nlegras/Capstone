@@ -13,7 +13,7 @@ class rideForm(forms.Form):
     drisSmokes = forms.CheckboxSelectMultiple()
     ridersPets = forms.CheckboxSelectMultiple()
     ridersLugg = forms.IntegerField()
-    print('hello')
+    returnDate = forms.DateField(required=False)
+    returnTime = forms.TimeField()
     
-
 
