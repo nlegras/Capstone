@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'ride',
     'users.apps.UsersConfig',
     'crispy_forms',
+    'six',
 ]
 
 MIDDLEWARE = [
