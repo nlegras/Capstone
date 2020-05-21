@@ -47,6 +47,16 @@ def index(request):
             record = Rides(depDate=departDate, depTime=departTime, depZip=departZip, arrZip=arrivalZip, driEmail=driverEmail, seatCapacity=seatCapac, reserved='Open', driSmokes=driverSmokes, riderPets=ridePets, riderLugg=rideLugg, riderPrice=riderPrice)
             record.save()
             messages.success(request, 'The Ride Offer was submitted successfully.')
+
+            returnDate = request.POST.get('returnDate')
+            returnTime = request.POST.get('returnTime')
+            
+            if returnDate != '':
+                retRecord = Rides(depDate=returnDate, depTime=returnTime, depZip=arrivalZip, arrZip=departZip, driEmail=driverEmail, seatCapacity=seatCapac, reserved='Open', driSmokes=driverSmokes, riderPets=ridePets, riderLugg=rideLugg, riderPrice=riderPrice)
+                retRecord.save()
+            else:
+                pass                
+            
         else:
             pass
             print(form.errors)

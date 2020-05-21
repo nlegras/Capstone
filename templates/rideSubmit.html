@@ -134,12 +134,14 @@
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submitModal">
         Submit Offer
       </button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#returnModal">
+        Submit with Return Ride
+      </button>
 
       <!-- Modal -->
       <div class="modal" id="submitModal">
         <div class="modal-dialog">
           <div class="modal-content">
-          
             <div class="modal-header">
               <h4 class="modal-title">Confirm Offer</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -148,15 +150,60 @@
             <div class="modal-body">
               <div class="container-fluid">
                 <p>Are you sure you want to offer this ride?</p>
-            </div>
+              </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <input type="submit" value="Submit" class="btn btn-primary" form="rideForm">
+              <div class="modal-footer">
+                    <input hidden type="date" id="returnDate" name="returnDate" class="form-control" form="rideForm" value="0000-00-00"><br>
+                    <input hidden type="time" id="returnTime" name="returnTime" class="form-control" form="rideForm" value="12:00:00" step="1800" list="timelist">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" value="Submit" class="btn btn-primary" form="rideForm">
+              </div>
             </div>
           </div>
         </div>
-      </div>      
+      </div>
+      
+      <!-- Return Trip Modal -->
+      <div class="modal" id="returnModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          
+            <div class="modal-header">
+              <h4 class="modal-title">Return Trip Information</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+              <div class="container-fluid">
+                <p>Please enter a date and time you will be returning.</p>
+                <div class="form-row">
+                  <div class="col">
+                    <label for="returnDate">Return Date: </label>
+                    <input type="date" id="returnDate" name="returnDate" class="form-control" form="rideForm" value="0000-00-00"><br>
+                  </div>
+                  <div class="col">
+                    <label for="returnTime">Return Time: </label>
+                    <input type="time" id="returnTime" name="returnTime" class="form-control" form="rideForm" value="12:00:00" step="1800" list="timelist"><br>
+                      <datalist id="timelist">
+                        <option value="12:00">
+                        <option value="14:00">
+                        <option value="16:00">
+                        <option value="18:00">
+                        <option value="20:00">
+                        <option value="22:00">
+                      </datalist>
+                  </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" value="Submit" class="btn btn-primary" form="rideForm">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div class="form-group">
   </form>
   {% for message in messages %}
