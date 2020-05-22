@@ -28,8 +28,6 @@
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
       <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
       <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
-      <div class="dropdown-divider"></div>
-      <!--<a class="dropdown-item" href="#">Something else here</a>-->
     </div>
     <!--<form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -206,17 +204,6 @@
 
     </div class="form-group">
   </form>
-  {% for message in messages %}
-    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-        {{ message }}
-    </div>
-  {% endfor %}
-  <!--% include '..\templates\messages.html'
-  // Time Picker Initialization
-  $('#input_starttime').pickatime({});  %-->
 </html>
 
 
