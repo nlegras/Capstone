@@ -51,7 +51,9 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        return HttpResponse ('Thank you for your email confirmation. You may now login to your account.')
+        messages.success(request, f'Your account has been activated, you may now login!')
+        return redirect('login')
+        #return HttpResponse ('Thank you for your email confirmation. You may now login to your account.')
     else:
         return HttpResponse('Activation link is invalid!')
 
