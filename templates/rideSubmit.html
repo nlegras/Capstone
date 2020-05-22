@@ -21,19 +21,27 @@
       <a class="nav-item nav-link" href="/rides">Available Rides</a>
       <a class="nav-item nav-link active" href="#">Offer Ride <span class="sr-only">(current)</span></a>
     </div>
-      <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {% if user.is_authenticated %}
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           User Profile
-      </a>-->
+      </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <a class="dropdown-item" href="#">Driver Profile</a>
-      <a class="dropdown-item" href="#">Rider Profile</a>
+      <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
+      <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Something else here</a>
+      <!--<a class="dropdown-item" href="#">Something else here</a>-->
     </div>
     <!--<form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>-->
+  </div>
+  <div class ="navbar-nav">
+    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+    {% else %}
+    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+    {% endif %}
   </div>
 </nav>
 
@@ -41,6 +49,15 @@
   <h1 class="display-4">EDUWheels</h1>
   <p class="lead">Welcome to EDUWheels, the place to find secure campus ride sharing!</p>
 </div>
+
+{% for message in messages %}
+<div class="alert {{ message.tags }} alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    {{ message }}
+</div>
+{% endfor %}
 
 <div class="container-fluid">
   <form action="#" method="post" id="rideForm" name="rideForm">
@@ -54,7 +71,15 @@
         </div>
         <div class="col">
           <label for="departTime">Departure Time: </label>
-          <input type="time" id="departTime" name="departTime" required class="form-control" form="rideForm" value="12:00:00"><br>
+          <input type="time" id="departTime" name="departTime" required class="form-control" form="rideForm" value="12:00:00" step="1800" list="timelist"><br>
+            <datalist id="timelist">
+              <option value="12:00">
+              <option value="14:00">
+              <option value="16:00">
+              <option value="18:00">
+              <option value="20:00">
+              <option value="22:00">
+              </datalist>
         </div>
         <div class="col">
           <label for="seatCapacity">Maximum Number of Riders: </label>
@@ -76,10 +101,10 @@
       </div>
       
       <div class="form-row">
-        <div class="col">
+        <!--<div class="col">
           <label for="driverEmail">Driver E-Mail: </label>
           <input type="email" id="driverEmail" name="driverEmail" required class="form-control" form="rideForm" ><br>
-        </div>
+        </div>-->
         <div class="col-2">
           <label for="riderPrice">Price: </label><br>
           <input type="number" inputmode="numeric" max="999" min ="0" step ="5" value="0" id="riderPrice" name="riderPrice" required class="form-control" form="rideForm"><br>
@@ -109,12 +134,14 @@
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submitModal">
         Submit Offer
       </button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#returnModal">
+        Submit with Return Ride
+      </button>
 
       <!-- Modal -->
       <div class="modal" id="submitModal">
         <div class="modal-dialog">
           <div class="modal-content">
-          
             <div class="modal-header">
               <h4 class="modal-title">Confirm Offer</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -123,15 +150,60 @@
             <div class="modal-body">
               <div class="container-fluid">
                 <p>Are you sure you want to offer this ride?</p>
-            </div>
+              </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <input type="submit" value="Submit" class="btn btn-primary" form="rideForm">
+              <div class="modal-footer">
+                    <input hidden type="date" id="returnDate" name="returnDate" class="form-control" form="rideForm" value="0000-00-00"><br>
+                    <input hidden type="time" id="returnTime" name="returnTime" class="form-control" form="rideForm" value="12:00:00" step="1800" list="timelist">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" value="Submit" class="btn btn-primary" form="rideForm">
+              </div>
             </div>
           </div>
         </div>
-      </div>      
+      </div>
+      
+      <!-- Return Trip Modal -->
+      <div class="modal" id="returnModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          
+            <div class="modal-header">
+              <h4 class="modal-title">Return Trip Information</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+              <div class="container-fluid">
+                <p>Please enter a date and time you will be returning.</p>
+                <div class="form-row">
+                  <div class="col">
+                    <label for="returnDate">Return Date: </label>
+                    <input type="date" id="returnDate" name="returnDate" class="form-control" form="rideForm" value="0000-00-00"><br>
+                  </div>
+                  <div class="col">
+                    <label for="returnTime">Return Time: </label>
+                    <input type="time" id="returnTime" name="returnTime" class="form-control" form="rideForm" value="12:00:00" step="1800" list="timelist"><br>
+                      <datalist id="timelist">
+                        <option value="12:00">
+                        <option value="14:00">
+                        <option value="16:00">
+                        <option value="18:00">
+                        <option value="20:00">
+                        <option value="22:00">
+                      </datalist>
+                  </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" value="Submit" class="btn btn-primary" form="rideForm">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div class="form-group">
   </form>
   {% for message in messages %}
@@ -145,10 +217,6 @@
   <!--% include '..\templates\messages.html'
   // Time Picker Initialization
   $('#input_starttime').pickatime({});  %-->
-</div>
-
-
-</body>
 </html>
 
 

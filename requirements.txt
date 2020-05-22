@@ -1,0 +1,5 @@
+address==0.1.1
+django-crispy-forms==1.9.1
+pyzipcode==2.0.0
+six==1.14.0
+

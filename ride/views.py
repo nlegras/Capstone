@@ -5,12 +5,16 @@ from django.utils import timezone
 from .forms import reserveForm
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required
 def post_rides(request):
    rides = Rides.objects.filter(depDate__gte=timezone.now()).order_by('depDate','depTime')
    return render(request, 'rides.html', {'rides': rides})
 
+@login_required
 def resRide(request):
    if request.method == "POST":
       resForm = reserveForm(request.POST)
@@ -27,6 +31,7 @@ def resRide(request):
 
          send_mail ( subject, message, email_from, driEmail )
          reservation.save()
+         messages.success(request, 'The Ride Offer was reserved successfully.')
 
 
    return HttpResponseRedirect('.')
