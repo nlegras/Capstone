@@ -20,6 +20,8 @@ def register(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False
+            user.email = form.cleaned_data.get('username')+'@mail.wou.edu'
+            print(user.email)
             user.save()
             current_site = get_current_site(request)
             mail_subject = 'Activate Your Account'
@@ -29,8 +31,8 @@ def register(request):
                     'uid': urlsafe_base64_encode(force_bytes(user.id)),  
                     'token': account_activation_token.make_token(user),  
                 })    
-            to_email = form.cleaned_data.get('email')
-            email = EmailMessage(mail_subject, message, to =[to_email])
+            #to_email = form.cleaned_data.get('email')
+            email = EmailMessage(mail_subject, message, to =[user.email])
             email.send()
             messages.success(request, f'An activation link has been sent to your email account. Please activate your account to log in.')
             return redirect('login')
