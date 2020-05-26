@@ -49,103 +49,112 @@
   <p class="lead">Welcome to EDUWheels, the place to find secure campus ride sharing!</p>
 </div>
 
-{% for message in messages %}
-<div class="alert {{ message.tags }} alert-dismissible" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-    {{ message }}
-</div>
-{% endfor %}
 
-<div class="container-fluid">
-  <table class="table table-striped" id="availableRides">
-    <caption>Available Rides</caption>
-    <thead>
-      <tr>
-        <th scope="col" onclick="sortTableDate(0, 'dd')">Departure Date <i id="dd" class="fa fa-fw fa-sort"></i></th>
-        <th scope="col" onclick="sortTableTime(1, 'dt')">Departure Time <i id="dt" class="fa fa-fw fa-sort"></th>
-        <th scope="col" onclick="sortTableA(2, 'dc')">Departure City <i id="dc" class="fa fa-fw fa-sort"></th>
-        <th scope="col" onclick="sortTableA(3, 'ac')">Destination City <i id="ac" class="fa fa-fw fa-sort"></th>
-        <th scope="col" onclick="sortTableA(4, 'em')">Driver Email <i id="em" class="fa fa-fw fa-sort"></th>
-        <th scope="col" onclick="sortTableA(5, 'st')">Seats Taken <i id="st" class="fa fa-fw fa-sort"></th>
-        <th scope="col" onclick="sortTableC(6, 'pr')">Price <i id="pr" class="fa fa-fw fa-sort"></th>
-        <th scope="col">Reserve</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for ride in rides %}
-      <tr>
-        <td>{{ ride.depDate|date:"F j, Y" }}</td>
-        <td value={{ ride.depTime|time:"H:i" }}>{{ ride.depTime|time:"g:i A" }}</td>
-        <td>{{ ride.depName }}</td>
-        <td>{{ ride.arrName }}</td>
-        <td>{{ ride.driEmail }}</td>
-        <td>{{ ride.seatTaken }} / {{ ride.seatCapacity }}</td>
-        <td>&dollar;{{ ride.riderPrice }}</td>
-        <td>{% if ride.seatTaken != ride.seatCapacity %}
-        
-          <form action="reserve" method="post" id="resForm" name="resForm">
-            {% csrf_token %}
-            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-{{ ride.id }}">Reserve</button>
-            <div class="container">
-            
-              <!-- The Modal -->
-              <div class="modal" id="modal-{{ ride.id }}">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                  
-                    <div class="modal-header">
-                      <h4 class="modal-title">Confirm Reservation</h4>
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
+<div class="container">
+  {% for message in messages %}
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+      {{ message }}
+  </div>
+  {% endfor %}  
+  
+  <div class="d-flex">
+    
+    <table class="table table-striped" id="availableRides">
+      <caption>Available Rides</caption>
+      <thead>
+        <tr>
+          <th scope="col" onclick="sortTableDate(0, 'dd')">Departure Date <i id="dd" class="fa fa-fw fa-sort"></i></th>
+          <th scope="col" onclick="sortTableTime(1, 'dt')">Departure Time <i id="dt" class="fa fa-fw fa-sort"></th>
+          <th scope="col" onclick="sortTableA(2, 'dc')">Departure City <i id="dc" class="fa fa-fw fa-sort"></th>
+          <th scope="col" onclick="sortTableA(3, 'ac')">Destination City <i id="ac" class="fa fa-fw fa-sort"></th>
+          <th scope="col" onclick="sortTableA(4, 'em')">Driver Email <i id="em" class="fa fa-fw fa-sort"></th>
+          <th scope="col" onclick="sortTableA(5, 'st')">Seats Taken <i id="st" class="fa fa-fw fa-sort"></th>
+          <th scope="col" onclick="sortTableC(6, 'pr')">Price <i id="pr" class="fa fa-fw fa-sort"></th>
+          <th scope="col">Reserve</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for ride in rides %}
+        <tr>
+          <td>{{ ride.depDate|date:"F j, Y" }}</td>
+          <td value={{ ride.depTime|time:"H:i" }}>{{ ride.depTime|time:"g:i A" }}</td>
+          <td>{{ ride.depName }}</td>
+          <td>{{ ride.arrName }}</td>
+          <td>{{ ride.driEmail }}</td>
+          <td>{{ ride.seatTaken }} / {{ ride.seatCapacity }}</td>
+          <td>&dollar;{{ ride.riderPrice }}</td>
+          <td>{% if ride.seatTaken != ride.seatCapacity %}
+          
+            <form action="reserve" method="post" id="resForm" name="resForm">
+              {% csrf_token %}
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-{{ ride.id }}">Reserve</button>
+              <div class="container">
+              
+                <!-- The Modal -->
+                <div class="modal" id="modal-{{ ride.id }}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
                     
-                    <div class="modal-body">
-                      <div class="container-fluid">
-                        <div class="row">
-                            <div class="col">Departure Date: </div>
-                            <div class="col">{{ ride.depDate }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col">Departure Time: </div>
-                            <div class="col">{{ ride.depTime}}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col">Departure City: </div>
-                            <div class="col">{{ ride.depName }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col">Destination City: </div>
-                            <div class="col">{{ ride.arrName }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col">Driver Email: </div>
-                            <div class="col">{{ ride.driEmail }}</div>
+                      <div class="modal-header">
+                        <h4 class="modal-title">Confirm Reservation</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      
+                      <div class="modal-body">
+                        <div class="container-fluid">
+                          <div class="row">
+                              <div class="col">Departure Date: </div>
+                              <div class="col">{{ ride.depDate }}</div>
+                          </div>
+                          <div class="row">
+                              <div class="col">Departure Time: </div>
+                              <div class="col">{{ ride.depTime}}</div>
+                          </div>
+                          <div class="row">
+                              <div class="col">Departure City: </div>
+                              <div class="col">{{ ride.depName }}</div>
+                          </div>
+                          <div class="row">
+                              <div class="col">Destination City: </div>
+                              <div class="col">{{ ride.arrName }}</div>
+                          </div>
+                          <div class="row">
+                              <div class="col">Driver Email: </div>
+                              <div class="col">{{ ride.driEmail }}</div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-            
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-secondary" form="resForm" id="reserveID" name="reserveID" value="{{ ride.id }}">Reserve</button>
+              
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-info" form="resForm" id="reserveID" name="reserveID" value="{{ ride.id }}">Reserve</button>
+                      </div>
+                    
                     </div>
                   </div>
                 </div>
-              </div>
-              <!-- End Modal -->
-            
-          </div>
-          {% endif %}
-          {% if ride.seatTaken == ride.seatCapacity %}
-          <button type="button" class="btn btn-secondary" {{ ride.reserved }} disabled>Reserved</button>
-          {% endif %}
-          </form>
-        </td>
-      </tr>
-    {% endfor %}   
-    </tbody>
+                <!-- End Modal -->
+              
+            </div>
+            {% endif %}
+            {% if ride.seatTaken == ride.seatCapacity %}
+            <button type="button" class="btn btn-secondary" {{ ride.reserved }} disabled>Reserved</button>
+            {% endif %}
+            </form>
+          </td>
+        </tr>
+      {% endfor %}   
+      </tbody>
+  
+    </table>
+  </div>
 
-  </table>
+</div>
+  
+    <div class="row mt-5 mb-5"></div>
 
 <script>
   function sortTableA(n, id) {
