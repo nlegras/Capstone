@@ -36,4 +36,9 @@ def resRide(request):
 
    return HttpResponseRedirect('.')
 
-
+def rideDetails(request, id):
+    ride = Rides.objects.get(id=id)
+    context = {
+        'ride': ride
+    }
+    return render(request, 'rideDetails.html', context)

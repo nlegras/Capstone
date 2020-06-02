@@ -129,6 +129,7 @@
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <button class="btn btn-secondary" form="resForm" id="reserveID" name="reserveID" value="{{ ride.id }}">Reserve</button>
+                        <a href="{% url 'rideDetails' ride.id %}">More Information</a>
                     </div>
                   </div>
                 </div>
