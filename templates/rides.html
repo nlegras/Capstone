@@ -3,12 +3,66 @@
 <head>
 <title>EDUWheels</title>
 <meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+  @media only screen and (max-width: 800px) {
+	
+  	/* Force table to not be like tables anymore */
+  	#no-more-tables table, 
+  	#no-more-tables thead, 
+  	#no-more-tables tbody, 
+  	#no-more-tables th, 
+  	#no-more-tables td, 
+  	#no-more-tables tr { 
+  		display: block; 
+  	}
+   
+  	/* Hide table headers (but not display: none;, for accessibility) */
+  	#no-more-tables thead tr { 
+  		position: absolute;
+  		top: -9999px;
+  		left: -9999px;
+  	}
+   
+  	#no-more-tables tr { border: 1px solid #ccc; }
+   
+  	#no-more-tables td { 
+  		/* Behave  like a "row" */
+  		border: none;
+  		border-bottom: 1px solid #eee; 
+  		position: relative;
+  		padding-left: 50%; 
+  		white-space: normal;
+  		text-align:left;
+  	}
+   
+  	#no-more-tables td:before { 
+  		/* Now like a table header */
+  		position: absolute;
+  		/* Top/left values mimic padding */
+  		top: 6px;
+  		left: 6px;
+  		width: 45%; 
+  		padding-right: 10px; 
+  		white-space: nowrap;
+  		text-align:left;
+  		font-weight: bold;
+  	}
+   
+  	/*
+  	Label the data
+  	*/
+  	#no-more-tables td:before { content: attr(data-title); }
+  }
+  
+</style>
 </head>
+
 <body>
 
 <!-- Navbar -->
@@ -22,13 +76,17 @@
       <a class="nav-item nav-link active" href="#">Available Rides <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/submit">Offer Ride</a>
     </div>
-    {% if user.is_authenticated %}
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          User Profile
-      </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
-      <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
+    <div class ="navbar-nav">
+      <div class="btn-group dropdown">
+        {% if user.is_authenticated %}
+          <a class="nav-item nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              User Profile
+          </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
+          <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
+        </div>
+      </div>
     </div>
     <!--<form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -50,7 +108,7 @@
 </div>
 
 
-<div class="container">
+<div class="container-fluid">
   {% for message in messages %}
   <div class="alert {{ message.tags }} alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -60,32 +118,32 @@
   </div>
   {% endfor %}  
   
-  <div class="d-flex">
-    
+  <section id="no-more-tables">
+
     <table class="table table-striped" id="availableRides">
       <caption>Available Rides</caption>
       <thead>
         <tr>
-          <th scope="col" onclick="sortTableDate(0, 'dd')">Departure Date <i id="dd" class="fa fa-fw fa-sort"></i></th>
-          <th scope="col" onclick="sortTableTime(1, 'dt')">Departure Time <i id="dt" class="fa fa-fw fa-sort"></th>
-          <th scope="col" onclick="sortTableA(2, 'dc')">Departure City <i id="dc" class="fa fa-fw fa-sort"></th>
-          <th scope="col" onclick="sortTableA(3, 'ac')">Destination City <i id="ac" class="fa fa-fw fa-sort"></th>
-          <th scope="col" onclick="sortTableA(4, 'em')">Driver Email <i id="em" class="fa fa-fw fa-sort"></th>
-          <th scope="col" onclick="sortTableA(5, 'st')">Seats Taken <i id="st" class="fa fa-fw fa-sort"></th>
-          <th scope="col" onclick="sortTableC(6, 'pr')">Price <i id="pr" class="fa fa-fw fa-sort"></th>
-          <th scope="col">Reserve</th>
+          <th scope="col" onclick="sortTableDate(0, 'dd')">Departure Date<i id="dd" class="fa fa-fw fa-sort"></i></th>
+          <th scope="col" onclick="sortTableTime(1, 'dt')">Departure Time<i id="dt" class="fa fa-fw fa-sort"></th>
+          <th scope="col" onclick="sortTableA(2, 'dc')">Departure City<i id="dc" class="fa fa-fw fa-sort"></th>
+          <th scope="col" onclick="sortTableA(3, 'ac')">Destination City<i id="ac" class="fa fa-fw fa-sort"></th>
+          <th scope="col" onclick="sortTableA(4, 'em')">Driver Email<i id="em" class="fa fa-fw fa-sort"></th>
+          <th scope="col" onclick="sortTableA(5, 'st')">Seats Taken<i id="st" class="fa fa-fw fa-sort"></th>
+          <th scope="col" onclick="sortTableC(6, 'pr')">Price<i id="pr" class="fa fa-fw fa-sort"></th>
+          <th scope="col" onclick="sortTableA(7, 're')">Reserve<i id="re" class="fa fa-fw fa-sort"></th>
         </tr>
       </thead>
       <tbody>
       {% for ride in rides %}
         <tr>
-          <td>{{ ride.depDate|date:"F j, Y" }}</td>
-          <td value={{ ride.depTime|time:"H:i" }}>{{ ride.depTime|time:"g:i A" }}</td>
-          <td>{{ ride.depName }}</td>
-          <td>{{ ride.arrName }}</td>
-          <td>{{ ride.driEmail }}</td>
-          <td>{{ ride.seatTaken }} / {{ ride.seatCapacity }}</td>
-          <td>&dollar;{{ ride.riderPrice }}</td>
+          <td data-title="Departure Date">{{ ride.depDate|date:"F j, Y" }}</td>
+          <td data-title="Departure Time" value={{ ride.depTime|time:"H:i" }}>{{ ride.depTime|time:"g:i A" }}</td>
+          <td data-title="Departure City">{{ ride.depName }}</td>
+          <td data-title="Destination City">{{ ride.arrName }}</td>
+          <td data-title="Driver Email">{{ ride.driEmail }}</td>
+          <td data-title="Seats Taken">{{ ride.seatTaken }} / {{ ride.seatCapacity }}</td>
+          <td data-title="Price">&dollar;{{ ride.riderPrice }}</td>
           <td>{% if ride.seatTaken != ride.seatCapacity %}
           
             <form action="reserve" method="post" id="resForm" name="resForm">
@@ -150,8 +208,8 @@
       </tbody>
   
     </table>
-  </div>
-
+  </section>
+  
 </div>
   
     <div class="row mt-5 mb-5"></div>
