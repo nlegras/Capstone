@@ -22,13 +22,15 @@
       <a class="nav-item nav-link" href="/rides">Available Rides</a>
       <a class="nav-item nav-link" href="/submit">Offer Ride</a>
     </div>
-    {% if user.is_authenticated %}
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          User Profile
-      </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
-      <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
+    <div class="navbar-nav">
+      <div class="btn-group dropdown">
+        {% if user.is_authenticated %}
+          <a class="nav-item nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User Profile</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
+          <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
+        </div>
+      </div>
     </div>
     <!--<form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -36,10 +38,10 @@
     </form>-->
   </div>
   <div class ="navbar-nav">
-    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+    <a class="nav-item nav-link text-info" href="{% url 'logout' %}">Logout</a>
     {% else %}
-    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+    <a class="nav-item nav-link text-info" href="{% url 'login' %}">Login</a>
+    <a class="nav-item nav-link text-info" href="{% url 'register' %}">Register</a>
     {% endif %}
   </div>
 </nav>

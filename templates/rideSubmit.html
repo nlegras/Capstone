@@ -22,14 +22,16 @@
       <a class="nav-item nav-link" href="/rides">Available Rides</a>
       <a class="nav-item nav-link active" href="#">Offer Ride <span class="sr-only">(current)</span></a>
     </div>
-    <div class="btn-group dropdown">
-      {% if user.is_authenticated %}
-        <a class="nav-item nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            User Profile
-        </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
-        <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
+    <div class="navbar-nav">
+      <div class="btn-group dropdown">
+        {% if user.is_authenticated %}
+          <a class="nav-item nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              User Profile
+          </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
+          <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
+        </div>
       </div>
     </div>
     <!--<form class="form-inline my-2 my-lg-0">
@@ -87,12 +89,12 @@
         <div class="form-row">
           <div class="form-group col-sm-6">
             <label for="departLocation">Departure Location </label>
-            <input type="text" id="departLocation" name="departLocation" class="form-control" form="rideForm" >
+            <input type="text" id="departLocation" name="departLocation" class="form-control" form="rideForm">
             <small id="departHelp" class="form-text text-muted">Enter 5-digit Zip code or City and State.</small>
           </div>
           <div class="form-group col-sm-6">
             <label for="arrivalLocation">Arrival Location </label>
-            <input type="text" id="arrivalLocation" name="arrivalLocation" class="form-control" form="rideForm" >
+            <input type="text" id="arrivalLocation" name="arrivalLocation" class="form-control" form="rideForm">
             <small id="arrivalHelp" class="form-text text-muted">Enter 5-digit Zip code or City and State.</small>
           </div>
         </div>
@@ -104,11 +106,11 @@
           </div>
           <div class="form-group col-sm-4">
             <label for="riderLugg">Luggage Items</label>
-            <input type="number" id="riderLugg" name="ridersLugg" class="form-control" min="0" value="0" form="rideForm">
+            <input type="number" id="riderLugg" name="ridersLugg" class="form-control" min="0" value="1" form="rideForm">
           </div>
           <div class="form-group col-sm-4">
             <label for="riderPrice">Price</label>
-            <input type="number" inputmode="numeric" max="999" min ="0" step ="5" value="0" id="riderPrice" name="riderPrice" required class="form-control" form="rideForm">
+            <input type="number" inputmode="numeric" max="999" min ="0" step ="5" value="5" id="riderPrice" name="riderPrice" required class="form-control" form="rideForm">
           </div>
         </div>
         
