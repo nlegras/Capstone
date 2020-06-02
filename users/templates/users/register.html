@@ -3,6 +3,7 @@
 <head>
 <title>EDUWheels</title>
 <meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -21,22 +22,15 @@
       <a class="nav-item nav-link" href="/rides">Available Rides</a>
       <a class="nav-item nav-link" href="/submit">Offer Ride</a>
     </div>
-      <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          User Profile
-      </a>-->
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <a class="dropdown-item" href="#">Driver Profile</a>
-      <a class="dropdown-item" href="#">Rider Profile</a>
-    </div>
-    {% if user.is_authenticated %}
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          User Profile
-      </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
-      <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
-      <div class="dropdown-divider"></div>
-      <!--<a class="dropdown-item" href="#">Something else here</a>-->
+    <div class="navbar-nav">
+      <div class="btn-group dropdown">
+        {% if user.is_authenticated %}
+          <a class="nav-item nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">User Profile</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
+          <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
+        </div>
+      </div>
     </div>
     <!--<form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
