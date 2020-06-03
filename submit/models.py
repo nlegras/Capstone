@@ -29,4 +29,20 @@ class Rides(models.Model):
         
     def __str__(self):
         return self.depDate.strftime("%m/%d/%Y")+": "+self.depName+" to "+self.arrName
+        
+    @property
+    def rPets(self):
+        if (self.riderPets == 1):
+            rPets = "Yes"
+        elif (self.riderPets == 0):
+            rPets = "No"
+        return rPets
+        
+    @property
+    def dSmokes(self):
+        if (self.driSmokes == 1):
+            dSmokes = "Yes"
+        elif (self.driSmokes == 0):
+            dSmokes = "No"
+        return dSmokes
     
