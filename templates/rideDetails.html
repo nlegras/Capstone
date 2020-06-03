@@ -3,6 +3,7 @@
 <head>
 <title>EDUWheels</title>
 <meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -21,15 +22,17 @@
       <a class="nav-item nav-link active" href="{% url 'post_rides' %}">Available Rides <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="/submit">Offer Ride</a>
     </div>
-    {% if user.is_authenticated %}
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          User Profile
-      </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
-      <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
-      <div class="dropdown-divider"></div>
-      <!--<a class="dropdown-item" href="#">Something else here</a>-->
+    <div class="navbar-nav">
+      <div class="btn-group dropdown">
+        {% if user.is_authenticated %}
+          <a class="nav-item nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              User Profile
+          </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'profile' %}">Driver Profile</a>
+          <a class="dropdown-item" href="{% url 'profile' %}">Rider Profile</a>
+        </div>
+      </div>
     </div>
     <!--<form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -50,53 +53,104 @@
   <p class="lead">Welcome to EDUWheels, the place to find secure campus ride sharing!</p>
 </div>
 
-    <div class="container-fluid">
+    <div class="container">
+      <div class="card">
+        <div class="card-header font-weight-bold">Ride Details</div>
+        <div class="card-body">
+      <div class="container">
         <div class="row">
-            <div class="col">Departure Date: {{ ride.depDate }}</div>
-            <div class="col">Departure Time: {{ ride.depTime}}</div>
+          <div class="col">Departure Date: </div>
+          <div class="col">{{ ride.depDate }}</div>
         </div>
         <div class="row">
-            <div class="col">Departure City: {{ ride.depName }}</div>
-            <div class="col">Destination City: {{ ride.arrName }}</div>
+          <div class="col">Departure Time: </div>
+          <div class="col">{{ ride.depTime|time:"g:i A" }}</div>
         </div>
         <div class="row">
-            <div class="col">Driver Email: {{ ride.driEmail }}</div>
+          <div class="col">Departure City: </div>
+          <div class="col">{{ ride.depName }}</div>
         </div>
-        <div id="map" style="width: 500px; height: 400px"></div>
-        <script>
-            var map;
-            var departureName = "{{ ride.depName }}";
-            var arrivalName = "{{ ride.arrName }}";
-            function initMap() {
-            var markerArray = [];
-            
-            var directionsService = new google.maps.DirectionsService;
-            var directionsRenderer = new google.maps.DirectionsRenderer({map: map});
-
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 44.848, lng: -123.234},
-                
-            });
-            directionsRenderer.setMap(map);
-
-            calculateAndDisplayRoute(directionsRenderer, directionsService, departureName, arrivalName);
-            }
-
-            function calculateAndDisplayRoute(directionsRenderer, directionsService, departureName, arrivalName) {
-            
-            var request = {
-                origin: departureName,
-                destination: arrivalName,
-                travelMode: 'DRIVING'
-            };
-            directionsService.route(request, function(results, status){
-                if (status == 'OK') {
-                directionsRenderer.setDirections(results);
-                }
-            });
-        }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFNxK2A45JZRixspxP3bJkKhls4G7u3OA&callback=initMap"
-    async defer></script>
+        <div class="row">
+          <div class="col">Destination City: </div>
+          <div class="col">{{ ride.arrName }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Seats Taken: </div>
+          <div class="col">{{ ride.seatTaken }} / {{ ride.seatCapacity }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Price: </div>
+          <div class="col">&dollar;{{ ride.riderPrice }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Luggage Items: </div>
+          <div class="col">{{ ride.riderLugg }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Pets: </div>
+          <div class="col">{{ ride.rPets }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Smoking: </div>
+          <div class="col">{{ride.dSmokes }}</div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <a class="btn btn-secondary" href="javascript:history.back()" role="button">Back</a>
+          </div>
+        </div>
+        <!--<div class="row">-->
+        <!--    <div class="col">Driver Email: </div>-->
+        <!--    <div class="col">{{ ride.driEmail }}</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      
+      
+        <!--<div class="container mt-3 mb-3">-->
+        <div class="row mt-3">
+          <div class="col" id="map" style="width: 500px; height: 400px"></div>
+        </div>
+        <!--</div>-->
+        
+      </div>
     </div>
+          <script>
+              var map;
+              var departureName = "{{ ride.depName }}";
+              var arrivalName = "{{ ride.arrName }}";
+              function initMap() {
+              var markerArray = [];
+              
+              var directionsService = new google.maps.DirectionsService;
+              var directionsRenderer = new google.maps.DirectionsRenderer({map: map});
+  
+              map = new google.maps.Map(document.getElementById('map'), {
+                  center: {lat: 44.848, lng: -123.234},
+                  
+              });
+              directionsRenderer.setMap(map);
+  
+              calculateAndDisplayRoute(directionsRenderer, directionsService, departureName, arrivalName);
+              }
+  
+              function calculateAndDisplayRoute(directionsRenderer, directionsService, departureName, arrivalName) {
+              
+              var request = {
+                  origin: departureName,
+                  destination: arrivalName,
+                  travelMode: 'DRIVING'
+              };
+              directionsService.route(request, function(results, status){
+                  if (status == 'OK') {
+                  directionsRenderer.setDirections(results);
+                  }
+              });
+          }
+          </script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFNxK2A45JZRixspxP3bJkKhls4G7u3OA&callback=initMap"
+      async defer></script>
+      
+    </div>
+    <div class="row mt-5 mb-5"></div>
 </body>
+</html>

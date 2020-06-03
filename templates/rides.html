@@ -142,7 +142,7 @@
           <th scope="col" onclick="sortTableTime(1, 'dt')">Departure Time<i id="dt" class="fa fa-fw fa-sort"></th>
           <th scope="col" onclick="sortTableA(2, 'dc')">Departure City<i id="dc" class="fa fa-fw fa-sort"></th>
           <th scope="col" onclick="sortTableA(3, 'ac')">Destination City<i id="ac" class="fa fa-fw fa-sort"></th>
-          <th scope="col" onclick="sortTableA(4, 'em')">Driver Email<i id="em" class="fa fa-fw fa-sort"></th>
+          <!--<th scope="col" onclick="sortTableA(4, 'em')">Driver Email<i id="em" class="fa fa-fw fa-sort"></th>-->
           <th scope="col" onclick="sortTableA(5, 'st')">Seats Taken<i id="st" class="fa fa-fw fa-sort"></th>
           <th scope="col" onclick="sortTableC(6, 'pr')">Price<i id="pr" class="fa fa-fw fa-sort"></th>
           <th scope="col" onclick="sortTableA(7, 're')">Reserve<i id="re" class="fa fa-fw fa-sort"></th>
@@ -155,7 +155,7 @@
           <td data-title="Departure Time" value={{ ride.depTime|time:"H:i" }}>{{ ride.depTime|time:"g:i A" }}</td>
           <td data-title="Departure City">{{ ride.depName }}</td>
           <td data-title="Destination City">{{ ride.arrName }}</td>
-          <td data-title="Driver Email">{{ ride.driEmail }}</td>
+          <!--<td data-title="Driver Email">{{ ride.driEmail }}</td>-->
           <td data-title="Seats Taken">{{ ride.seatTaken }} / {{ ride.seatCapacity }}</td>
           <td data-title="Price">&dollar;{{ ride.riderPrice }}</td>
           <td>{% if ride.seatTaken != ride.seatCapacity %}
@@ -183,7 +183,7 @@
                           </div>
                           <div class="row">
                               <div class="col">Departure Time: </div>
-                              <div class="col">{{ ride.depTime}}</div>
+                              <div class="col">{{ ride.depTime|time:"g:i A" }}</div>
                           </div>
                           <div class="row">
                               <div class="col">Departure City: </div>
@@ -194,18 +194,26 @@
                               <div class="col">{{ ride.arrName }}</div>
                           </div>
                           <div class="row">
-                              <div class="col">Driver Email: </div>
-                              <div class="col">{{ ride.driEmail }}</div>
+                              <div class="col">Seats Taken: </div>
+                              <div class="col">{{ ride.seatTaken }} / {{ ride.seatCapacity }}</div>
                           </div>
+                          <div class="row">
+                              <div class="col">Price: </div>
+                              <div class="col">&dollar;{{ ride.riderPrice }}</div>
+                          </div>
+                          <!--<div class="row">-->
+                          <!--    <div class="col">Driver Email: </div>-->
+                          <!--    <div class="col">{{ ride.driEmail }}</div>-->
+                          <!--</div>-->
                         </div>
                       </div>
                     
             
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-secondary" form="resForm" id="reserveID" name="reserveID" value="{{ ride.id }}">Reserve</button>
-                        <a href="{% url 'rideDetails' ride.id %}">More Information</a>
-                    </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <a class="btn btn-outline-info" href="{% url 'rideDetails' ride.id %}" role="button">More Information</a>
+                          <button class="btn btn-info" form="resForm" id="reserveID" name="reserveID" value="{{ ride.id }}">Reserve</button>
+                      </div>
                     </div>
                   </div>
                 </div>
