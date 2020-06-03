@@ -129,7 +129,7 @@
             <input class="form-control" type ="search" name="arrive" value="{{request.GET.arrive}}" class="form-control">
             <small id="arrivalHelp" class="form-text text-muted">Enter 5-digit Zip code or City and State.</small>
         </div>
-        <div class ="form-group col-sm-1 align-items-center">
+        <div class ="form-group col-sm-1 mt-2 align-items-center">
           <button type="submit" class="btn btn-info">Search</button>
         </div>
       </div>
@@ -160,7 +160,7 @@
           <td data-title="Price">&dollar;{{ ride.riderPrice }}</td>
           <td>{% if ride.seatTaken != ride.seatCapacity %}
           
-            <form action="reserve" method="post" id="resForm" name="resForm">
+            <form action="{% url 'resRide' %}" method="post" id="resForm" name="resForm">
               {% csrf_token %}
               <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-{{ ride.id }}">Reserve</button>
               <div class="container">

@@ -14,7 +14,7 @@ zcdb = ZipCodeDatabase()
 ap = AddressParser()
 # Create your views here.
 
-@login_required
+#@login_required
 def post_rides(request):
    print("post_rides")
    rides = Rides.objects.filter(depDate__gte=timezone.now()).order_by('depDate','depTime')
